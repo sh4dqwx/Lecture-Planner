@@ -1,0 +1,51 @@
+﻿@page
+@model NET_Projekt.Pages.EditLectureModel
+@using DB.Dto
+@{
+	ViewData["Title"] = "Edytuj wykład";
+}
+
+<div class="form-container">
+	<form method="post">
+		@Html.ValidationSummary("", new { @class = "fw-bold text-danger" })
+		<input type="hidden" asp-for="Lecture.Id" value="@Model.Lecture.Id" />
+		<input type="hidden" asp-for="Lecture.LecturerId" value="@Model.Lecture.LecturerId" />
+		<div>
+			<label asp-for="Lecture.Topic">Temat</label>
+			<input asp-for="Lecture.Topic" value="@Model.Lecture.Topic" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="Lecture.Date">Data</label>
+			<input asp-for="Lecture.Date" value="@Model.Lecture.Date.ToString("yyyy-MM-dd")" type="date" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="Lecture.StartHour">Godzina rozpoczęcia</label>
+			<input asp-for="Lecture.StartHour" value="@Model.Lecture.StartHour" type="time" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="Lecture.EndHour">Godzina zakończenia</label>
+			<input asp-for="Lecture.EndHour" value="@Model.Lecture.EndHour" type="time" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="Lecture.HallId">Sala</label>
+			<select asp-for="Lecture.HallId" class="mt-2">
+				<option value="">Wybierz salę</option>
+				@foreach (HallDto hall in Model.Halls)
+				{
+					if (Model.Lecture.HallId == hall.Id)
+					{
+						<option value="@hall.Id" selected>@hall.Name</option>
+					}
+					else
+					{
+						<option value="@hall.Id">@hall.Name</option>
+					}
+				}
+			</select>
+		</div>
+		<div class="text-center mt-3">
+			<button type="submit" class="btn btn-success">Edytuj wykład</button>
+			<a asp-page="Index" class="btn btn-primary">Powrót</a>
+		</div>
+	</form>
+</div>

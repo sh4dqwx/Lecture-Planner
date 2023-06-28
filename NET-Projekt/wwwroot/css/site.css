@@ -1,0 +1,79 @@
+:root {
+    --header-bg-color: #89cc89;
+    --lecture-bg-color: #89cc89;
+    --lecture-participant-bg-color: #0a870a;
+    --lecture-lecturer-bg-color: #89ffff;
+}
+
+header {
+    height: 75px;
+    background-color: var(--header-bg-color);
+}
+
+.form-container,
+.details-container {
+    width: 600px;
+    background-color: var(--header-bg-color);
+    margin: 50px auto 0px auto;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.form-container label,
+.details-container label {
+    font-weight: bold;
+}
+
+.table-container {
+    margin: 50px 150px 10px 150px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+.table-container th,
+.table-container tr {
+    width: 20%;
+    font-weight: bold;
+}
+
+tr .lecture {
+    position: relative;
+    background-color: var(--lecture-bg-color);
+}
+
+tr .participant {
+    position: relative;
+    background-color: var(--lecture-participant-bg-color);
+}
+
+tr .lecturer {
+    position: relative;
+    background-color: var(--lecture-lecturer-bg-color);
+}
+
+.legend-lecture {
+    background-color: var(--lecture-bg-color);
+    font-weight: bold;
+}
+
+.legend-participant {
+    background-color: var(--lecture-participant-bg-color);
+    font-weight: bold;
+}
+
+.legend-lecturer {
+    background-color: var(--lecture-lecturer-bg-color);
+    font-weight: bold;
+}
+
+.details-btn {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin: 5px;
+}
+
+.user-item {
+    background-color: var(--header-bg-color);
+}

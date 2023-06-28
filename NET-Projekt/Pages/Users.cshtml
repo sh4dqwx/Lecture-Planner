@@ -1,0 +1,46 @@
+﻿@page
+@using DB.Dto;
+@model NET_Projekt.Pages.UsersModel
+@{
+	ViewData["Title"] = "Użytkownicy";
+}
+
+<div class="d-flex">
+	<div class="me-3 w-50">
+		<h1 class="m-2">Studenci</h1>
+		@foreach(UserDto student in Model.Students)
+		{
+			<div class="m-2 user-item d-flex justify-content-between align-items-center">
+				<p class="m-2">@student.FirstName @student.LastName</p>
+				<span class="d-flex">
+					<a asp-page="EditUser" asp-route-Id="@student.Id" class="m-2 btn btn-sm btn-primary d-flex align-items-center">Edytuj</a>
+					<form method="post" asp-page-handler="DeleteUser" class="m-2">
+						<input type="hidden" name="userId" value="@student.Id" />
+						<button type="submit" class="h-100 btn btn-sm btn-primary">Usuń</button>
+					</form>
+				</span>
+			</div>
+		}
+	</div>
+	<div class="ms-3 w-50">
+		<h1 class="m-2">Wykładowcy</h1>
+		@foreach (UserDto lecturer in Model.Lecturers)
+		{
+			<div class="m-2 user-item d-flex justify-content-between align-items-center">
+				<p class="m-2">@lecturer.FirstName @lecturer.LastName</p>
+				<span class="d-flex">
+					<a asp-page="EditUser" asp-route-Id="@lecturer.Id" class="m-2 btn btn-sm btn-primary d-flex align-items-center">Edytuj</a>
+					<form method="post" asp-page-handler="DeleteUser" class="m-2">
+						<input type="hidden" name="userId" value="@lecturer.Id" />
+						<button type="submit" class="h-100 btn btn-sm btn-primary">Usuń</button>
+					</form>
+				</span>
+			</div>
+		}
+	</div>
+</div>
+
+<div class="text-center">
+	<a asp-page="AddUser" class="btn btn-success">Dodaj użytkownika</a>
+	<a asp-page="Index" class="btn btn-primary">Powrót</a>
+</div>

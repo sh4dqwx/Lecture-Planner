@@ -1,0 +1,91 @@
+﻿@page
+@model IndexModel
+@using DB.Dto
+@using DB.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> userManager
+@{
+    ViewData["Title"] = "Wykłady";
+    User user = await userManager.GetUserAsync(User);
+}
+
+<div class="table-container">
+    <div id="date-row" class="p-3 d-flex justify-content-between">
+        <form method="get">
+            <input type="hidden" asp-for="Date" value="@Model.Date.AddDays(-1).ToString("yyyy-MM-dd")">
+            <button type="submit"><i class="fa-solid fa-arrow-left" title="Poprzednia data"></i></button>
+        </form>
+        <h5>@Model.Date.ToString("dd MMMM yyyy")</h5>
+        <form method="get">
+            <input type="hidden" asp-for="Date" value="@Model.Date.AddDays(1).ToString("yyyy-MM-dd")">
+            <button type="submit"><i class="fa-solid fa-arrow-right" title="Następna data"></i></button>
+        </form>
+    </div>
+    <table class="m-0 table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Godzina</th>
+                @foreach(HallDto hall in Model.Halls)
+                {
+                    <th>@hall.Name</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(TimeOnly hour in Model.Hours)
+            {
+                <tr>
+                    <th>@hour.ToString(@"HH\:mm")</th>
+                    @foreach (HallDto hall in Model.Halls)
+                    {
+                        bool IsLecture = false;
+                        foreach (LectureDto lecture in Model.Lectures)
+                        {
+                            if (lecture.HallId != hall.Id) continue;
+                            if (lecture.StartHour == hour)
+                            {
+                                <td class="lecture @(lecture.IsUserParticipant ? "participant" : "") @(lecture.IsUserLecturer ? "lecturer" : "")" rowspan="@lecture.RowSpan">
+                                    @lecture.Topic
+                                    <a asp-page="Details" asp-route-Id="@lecture.Id" asp-route-IsUserParticipant="@lecture.IsUserParticipant" asp-route-IsUserLecturer="@lecture.IsUserLecturer" class="details-btn btn btn-sm btn-primary">Szczegóły</a>
+                                </td>
+                                IsLecture = true;
+                                break;
+                            }
+                            if (hour.CompareTo(lecture.StartHour) >= 0 && hour.CompareTo(lecture.EndHour) <= 0) IsLecture = true;
+                        }
+                        if (!IsLecture)
+                        {
+                            <td></td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div>
+        <p class="p-2 legend-lecture">Wykład</p>
+    </div>
+    <div>
+        <p class="p-2 legend-participant">Wykład w którym uczestniczysz</p>
+    </div>
+    @if(!(await userManager.IsInRoleAsync(user, "Student")))
+    {
+        <div>
+            <p class="p-2 legend-lecturer">Wykład który prowadzisz</p>
+        </div>
+    }
+</div>
+
+@if (!(await userManager.IsInRoleAsync(user, "Student")))
+{
+    <div class="text-center">
+        <a asp-page="AddLecture" class="btn btn-success">Dodaj wykład</a>
+        @if (await userManager.IsInRoleAsync(user, "Admin"))
+        {
+            <a asp-page="Users" class="btn btn-primary">Użytkownicy</a>
+        }
+    </div>
+}

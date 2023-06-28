@@ -1,0 +1,43 @@
+﻿@page
+@model NET_Projekt.Pages.AddUserModel
+@{
+	ViewData["Title"] = "Dodaj użytkownika";
+}
+
+<div class="form-container">
+	<form method="post">
+		@Html.ValidationSummary("", new { @class = "fw-bold text-danger" })
+		<div>
+			<label asp-for="NewUser.FirstName">Imię</label>
+			<input asp-for="NewUser.FirstName" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="NewUser.LastName">Nazwisko</label>
+			<input asp-for="NewUser.LastName" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="NewUser.Email">Email</label>
+			<input asp-for="NewUser.Email" type="email" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="NewUser.Password">Hasło</label>
+			<input asp-for="NewUser.Password" type="password" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="NewUser.ConfirmPassword">Powtórz hasło</label>
+			<input asp-for="NewUser.ConfirmPassword" type="password" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="NewUser.Role">Rola</label>
+			<select asp-for="NewUser.Role" class="mt-2">
+				<option value="">Wybierz rolę</option>
+				<option value="Student">Student</option>
+				<option value="Wykładowca">Wykładowca</option>
+			</select>
+		</div>
+		<div class="text-center mt-3">
+			<button type="submit" class="btn btn-success">Dodaj użytkownika</button>
+			<a asp-page="Users" class="btn btn-primary">Powrót</a>
+		</div>
+	</form>
+</div>

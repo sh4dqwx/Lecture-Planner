@@ -1,0 +1,42 @@
+﻿@page
+@model NET_Projekt.Pages.AddLectureModel
+@using DB.Dto
+@{
+	ViewData["Title"] = "Dodaj wykład";
+}
+
+<div class="form-container">
+	<form method="post">
+		@Html.ValidationSummary("", new { @class = "fw-bold text-danger" })
+		<div>
+			<label asp-for="Lecture.Topic">Temat</label>
+			<input asp-for="Lecture.Topic" class="form-control"/>
+		</div>
+		<div>
+			<label asp-for="Lecture.Date">Data</label>
+			<input asp-for="Lecture.Date" type="date" value="2023-06-20" class="form-control"/>
+		</div>
+		<div>
+			<label asp-for="Lecture.StartHour">Godzina rozpoczęcia</label>
+			<input asp-for="Lecture.StartHour" type="time" value="08:00" class="form-control"/>
+		</div>
+		<div>
+			<label asp-for="Lecture.EndHour">Godzina zakończenia</label>
+			<input asp-for="Lecture.EndHour" type="time" value="08:30" class="form-control"/>
+		</div>
+		<div>
+			<label asp-for="Lecture.HallId">Sala</label>
+			<select asp-for="Lecture.HallId" class="mt-2">
+				<option value="0">Wybierz salę</option>
+				@foreach(HallDto hall in Model.Halls)
+				{
+					<option value="@hall.Id">@hall.Name</option>
+				}
+			</select>
+		</div>
+		<div class="text-center mt-3">
+			<button type="submit" class="btn btn-success">Dodaj wykład</button>
+			<a asp-page="Index" class="btn btn-primary">Powrót</a>
+		</div>
+	</form>
+</div>

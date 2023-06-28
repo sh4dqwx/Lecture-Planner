@@ -1,0 +1,16 @@
+﻿@page
+@model NET_Projekt.Pages.ProfileModel
+@{
+	ViewData["Title"] = "Profil";
+}
+
+<div class="details-container">
+	<p><label>Imię:</label> @Model.AuthorizedUser.FirstName</p>
+	<p><label>Nazwisko:</label> @Model.AuthorizedUser.LastName</p>
+	<p><label>Email:</label> @Model.AuthorizedUser.Email</p>
+	<p><label>Rola:</label> @Model.AuthorizedUser.Role</p>
+
+	<div class="text-center">
+		<a asp-page="Index" class="btn btn-primary">Powrót</a>
+	</div>
+</div>

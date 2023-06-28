@@ -1,0 +1,54 @@
+﻿@page
+@model NET_Projekt.Pages.DetailsModel
+@using Microsoft.AspNetCore.Identity;
+@using DB.Models;
+@inject UserManager<User> userManager
+@{
+	ViewData["Title"] = "Szczegóły";
+	string userId = userManager.GetUserId(User);
+}
+
+<div class="details-container">
+	<p><label>Temat:</label> @Model.Lecture.Topic</p>
+	<p><label>Sala:</label> @Model.Lecture.Hall.Name</p>
+	<p><label>Data:</label> @Model.Lecture.Date.ToString("dd MMMM yyyy")</p>
+	<p><label>Godziny:</label> @Model.Lecture.StartHour.ToString(@"HH\:mm") - @Model.Lecture.EndHour.ToString(@"HH\:mm")</p>
+	<p><label>Wykładowca:</label> @Model.Lecture.Lecturer.FirstName @Model.Lecture.Lecturer.LastName</p>
+	<p><label>Liczba uczestników:</label> @Model.Lecture.ParticipantCount</p>
+
+	<div class="d-flex justify-content-center">
+		@if (Model.IsUserParticipant && !Model.IsUserLecturer)
+		{
+			<form method="post" asp-page-handler="CancelParticipation">
+				<input type="hidden" name="lectureId" value="@Model.Lecture.Id">
+				<button class="m-2 btn btn-primary" type="submit">Anuluj udział</button>
+			</form>
+		}
+		else if (User.IsInRole("Wykładowca") && Model.IsUserLecturer)
+		{
+			<a asp-page="EditLecture" asp-route-Id="@Model.Lecture.Id" class="m-2 btn btn-primary">Edytuj</a>
+			<form method="post" asp-page-handler="DeleteLecture">
+				<input type="hidden" name="lectureId" value="@Model.Lecture.Id">
+				<button class="m-2 btn btn-danger" type="submit">Usuń</button>
+			</form>
+		}
+		else if (!Model.IsUserLecturer)
+		{
+			<form method="post" asp-page-handler="ConfirmParticipation">
+				<input type="hidden" name="lectureId" value="@Model.Lecture.Id">
+				<button class="m-2 btn btn-primary" type="submit">Potwierdź udział</button>
+			</form>
+		}
+
+		@if (User.IsInRole("Admin"))
+		{
+			<a asp-page="EditLecture" asp-route-Id="@Model.Lecture.Id" class="m-2 btn btn-primary">Edytuj</a>
+			<form method="post" asp-page-handler="DeleteLecture">
+				<input type="hidden" name="lectureId" value="@Model.Lecture.Id">
+				<button class="m-2 btn btn-danger" type="submit">Usuń</button>
+			</form>
+		}
+
+		<a asp-page="Index" class="m-2 btn btn-primary">Powrót</a>
+	</div>
+</div>
