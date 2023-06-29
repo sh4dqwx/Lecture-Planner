@@ -145,7 +145,7 @@ namespace DB
 			{
 				Id = 1,
 				Topic = "Teoria liczb i kryptografia",
-				Date = new DateTime(2023, 6, 15),
+				Date = new DateTime(2023, 6, 29),
 				StartHour = new TimeSpan(8, 30, 0),
 				EndHour = new TimeSpan(9, 0, 0),
 				HallId = 1,
@@ -155,7 +155,7 @@ namespace DB
 			{
 				Id = 2,
 				Topic = "Geometria fraktalna",
-				Date = new DateTime(2023, 6, 15),
+				Date = new DateTime(2023, 6, 29),
 				StartHour = new TimeSpan(10, 0, 0),
 				EndHour = new TimeSpan(12, 0, 0),
 				HallId = 3,
@@ -165,7 +165,7 @@ namespace DB
 			{
 				Id = 3,
 				Topic = "Teoria grafów i jej zastosowania",
-				Date = new DateTime(2023, 6, 16),
+				Date = new DateTime(2023, 6, 30),
 				StartHour = new TimeSpan(9, 30, 0),
 				EndHour = new TimeSpan(10, 30, 0),
 				HallId = 2,
@@ -175,7 +175,7 @@ namespace DB
 			{
 				Id = 4,
 				Topic = "Statystyka i analiza danych",
-				Date = new DateTime(2023, 6, 16),
+				Date = new DateTime(2023, 6, 30),
 				StartHour = new TimeSpan(8, 30, 0),
 				EndHour = new TimeSpan(11, 0, 0),
 				HallId = 4,

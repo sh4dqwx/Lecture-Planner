@@ -34,6 +34,7 @@ namespace DB.Repositories
 			_dbContext.Database.ExecuteSql(
 				$"AddLecture {lecture.Topic}, {lecture.Date.ToDateTime(new TimeOnly(0, 0, 0))}, {lecture.StartHour.ToTimeSpan()}, {lecture.EndHour.ToTimeSpan()}, {lecture.HallId}, {lecture.LecturerId}"
 			);
+			_dbContext.SaveChanges();
 		}
 
 		public void EditLecture(LectureAddEditDto lecture)
@@ -41,11 +42,13 @@ namespace DB.Repositories
 			_dbContext.Database.ExecuteSql(
 				$"EditLecture {lecture.Id}, {lecture.Topic}, {lecture.Date.ToDateTime(new TimeOnly(0, 0, 0))}, {lecture.StartHour.ToTimeSpan()}, {lecture.EndHour.ToTimeSpan()}, {lecture.HallId}"
 			);
+			_dbContext.SaveChanges();
 		}
 
 		public void DeleteLecture(int id)
 		{
 			_dbContext.Database.ExecuteSql($"DeleteLecture {id}");
+			_dbContext.SaveChanges();
 		}
 	}
 }

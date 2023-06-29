@@ -120,11 +120,13 @@ namespace DB.Services
         public void ConfirmParticipation(int lectureId, string userId)
         {
             _dbContext.Database.ExecuteSql($"ConfirmParticipation {lectureId}, {userId}");
-        }
+			_dbContext.SaveChanges();
+		}
 
         public void CancelParticipation(int lectureId, string userId)
         {
 			_dbContext.Database.ExecuteSql($"CancelParticipation {lectureId}, {userId}");
+			_dbContext.SaveChanges();
 		}
     }
 }
